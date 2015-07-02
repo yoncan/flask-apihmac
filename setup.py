@@ -10,7 +10,7 @@ from setuptools import setup
 setup(
     name='Flask-ApiHmac',
     version='0.0.1',
-    url='http://github.com/yoncan/flask-httpauth/',
+    url='https://github.com/yoncan/flask-apihmac',
     license='MIT',
     author='YangCan',
     author_email='yoncan@qq.com',
@@ -23,7 +23,7 @@ setup(
     install_requires=[
         'Flask'
     ],
-    test_suite = "None",
+    test_suite="None",
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
