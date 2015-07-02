@@ -85,7 +85,7 @@ class ApiHmac(object):
         return callback
 
 
-    def _get_request_params(self, request_data):
+    def get_request_params(self, request_data):
         """
             get request params
         """
@@ -94,7 +94,7 @@ class ApiHmac(object):
                 key + "=" + str(request_data[key]) for key in sorted(request_data) if key != 'Signature')
             return str_params
 
-    def _check_request_time(self, request_data):
+    def check_request_time(self, request_data):
         """
             Time must be less than 30 minutes
         """
@@ -107,27 +107,25 @@ class ApiHmac(object):
             return False
 
 
-    def _check_request_rate(self):
+    def check_request_rate(self):
         """
             check request rate per minutes
         """
         pass
 
-    def _args_is_ok(self, request_data):
+    def args_is_ok(self, request_data):
         """
             check request args is ok
         """
         __field__ = ('Signature', 'Action', 'SecretId', 'Timestamp', 'Nonce')
 
-        if request_data:
-            s = [x for x in __field__ if x not in request_data.keys() or len(request_data.get(x, '')) == 0]
-            if len(s): return False
+        s = [x for x in __field__ if x not in request_data.keys() or len(request_data.get(x, '')) == 0]
+        if len(s): return False
 
-            return True
-        return False
+        return True
 
 
-    def _split_request_info(self):
+    def split_request_info(self):
         """
             split request info
         """
@@ -157,7 +155,7 @@ class ApiHmac(object):
         """
             check request validate
         """
-        st = self._split_request_info()
+        st = self.split_request_info()
 
         if st is False:
             raise ApiHmacError(400, u'Unsupported Operation Error')
@@ -168,11 +166,11 @@ class ApiHmac(object):
 
 
         # check request params is ok
-        if self._args_is_ok(self.request_data) is False:
+        if self.args_is_ok(self.request_data) is False:
             raise ApiHmacError(400, u'Invalid Parameter Error')
 
         # check request params time value is ok
-        if self._check_request_time(self.request_data) is False:
+        if self.check_request_time(self.request_data) is False:
             raise ApiHmacError(400, u'TimeOut Or Time Error')
 
         # check request params signature value is ok
@@ -193,7 +191,7 @@ class ApiHmac(object):
         else:
             raise ApiHmacError(400, u'Invalid AccessKeyId Error')
 
-        self.str_params = self._get_request_params(self.request_data)
+        self.str_params = self.get_request_params(self.request_data)
         source = '%s%s%s?%s' % (
             self.requestMethod,
             self.requestHost,
