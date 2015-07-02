@@ -1,5 +1,6 @@
 # flask-apihmac
 Basic Request a signature authentication for Flask routes.
+对API请求做签名认证, 类似于QCloud腾讯云平台的认证方式
 
 # example
     ~~~ app.py
