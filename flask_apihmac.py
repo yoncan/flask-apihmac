@@ -208,7 +208,7 @@ class ApiHmac(object):
 
 
     def validate_hmac(self, func):
-        """
+        """ 
             decorated
         """
 
